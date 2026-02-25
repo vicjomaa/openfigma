@@ -1,0 +1,18 @@
+<script>
+  const socket = new WebSocket('ws://localhost:3000');
+  socket.onopen = () => console.log('🔌 WS Connected');
+  socket.onmessage = (event) => {
+    console.log('📥 Received:', event.data);
+    window.parent.postMessage({ pluginMessage: { type: 'code', data: event.data } }, '*');
+  };
+  
+  window.onmessage = (event) => {
+    const pluginMessage = event.data.pluginMessage;
+    if (pluginMessage && pluginMessage.type === 'error') {
+      console.error("Error from Figma main thread:", pluginMessage.data);
+      socket.send(JSON.stringify({ type: 'error', data: pluginMessage.data, stack: pluginMessage.stack }));
+    }
+  };
+
+  socket.onerror = (e) => console.log('❌ WS Error:', e);
+</script>
