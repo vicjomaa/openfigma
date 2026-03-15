@@ -1,0 +1,28 @@
+{
+  "type": "module",
+  "name": "my-figma-bridge",
+  "version": "1.0.0",
+  "description": "Bridge between OpenCode and Figma",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "start:dev": "node server.js",
+    "stop": "powershell -Command \"Stop-Process -Name 'node' -Force -ErrorAction SilentlyContinue\" 2>null",
+    "restart": "npm run stop && npm run start",
+    "install-plugin": "echo \"Open Figma &gt; Plugins &gt; Create Plugin &gt; Import Manifest from manifest.json\""
+  },
+  "keywords": [
+    "figma",
+    "bridge",
+    "opencode"
+  ],
+  "author": "",
+  "license": "MIT",
+  "dependencies": {
+    "esm": "^3.2.25",
+    "ws": "^8.19.0"
+  },
+  "engines": {
+    "node": ">=16.0.0"
+  }
+}
